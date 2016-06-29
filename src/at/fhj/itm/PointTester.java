@@ -1,50 +1,52 @@
 package at.fhj.itm;
-class PointTester {
-	public static void main (String[] args) {
-		Point2d  pt1 = new Point2d ();
 
-		System.out.println ("pt1 = " + pt1);
 
-		Point2d pt2 = new Point2d(4.0, 3.0);
 
-		System.out.println ("pt2 = " + pt2);
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
-		pt1.setDebug(true);	
 
-		System.out.println ("Distance from " + pt1 + " to " + pt2 +
-				" is " + pt1.distanceFrom(pt2));
-
-		System.out.println ("Distance from " + pt2 + " to " + pt1 +
-				" is " + pt2.distanceFrom(pt1));
-
-		System.out.println ("Distance from " + pt1 + " to the origin (0, 0) is " +
-				pt1.distanceFromOrigin());
-
-		System.out.println ("Distance from " + pt2 + " to the origin (0, 0) is " +
-				pt2.distanceFromOrigin());
-
-		pt1.setXY(3, 5);
-		System.out.println ("pt1 = " + pt1);
-
-		pt2.setXY(-3, -5);
-		System.out.println ("pt2 = " + pt2);
-
-		System.out.println ("Distance from " + pt1 + " to " + pt2 +
-				" is " + pt1.distanceFrom(pt2));
-
-		System.out.println ("Distance from " + pt2 + " to " + pt1 +
-				" is " + pt2.distanceFrom(pt1));
-
-		pt1.setDebug(false); 
-
-		System.out.println ("Distance from " + pt1 + " to the origin (0, 0) is " +
-				pt1.distanceFromOrigin());
-
-		System.out.println ("Distance from " + pt2 + " to the origin (0, 0) is " +
-				pt2.distanceFromOrigin());
-		
-	
-
-	}
+public class PointTester
+{
+	public Point2d p1;
+    public Point2d p2;
+    
+    @Before
+    public void setup() throws Exception
+    {
+    	Point2d p1 = new Point2d();
+        Point2d p2 = new Point2d(); // keep size of 5 !!
+    }
+    
+    @Test
+    public void testDistanceFrom() throws Exception
+    {
+    	 p1 = new Point2d(0,0);
+    	 p2 = new Point2d(4.0,3.0);
+   		 assertEquals( Math.sqrt (Math.pow(p1.getX()-p2.getX(),2)+Math.pow(p1.getY()-p2.getY(),2)), p1.distanceFrom(p2), 0.00001);
+    }
+    @Test
+    public void testDistanceFromOrigin() throws Exception
+    {
+    
+    	 p2 = new Point2d(4.0,3.0);
+    	
+   		 assertEquals( 4.0 , p2.distanceFromOrigin(), 0.00001);
+    }
+    @Test
+    public void testGetY() throws Exception
+    {
+    	 p2 = new Point2d(4.0,3.0);
+    	 
+   		 assertEquals( 3.0 , p2.getY(), 0.00001);
+    }
+    @Test
+    public void testGetX() throws Exception
+    {
+    	 p2 = new Point2d(4.0,3.0);
+    	 
+   		 assertEquals( 4.0 , p2.getX(), 0.00001);
+    }
+  
 }
-
