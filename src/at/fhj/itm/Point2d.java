@@ -19,6 +19,11 @@ class Point2d {
 	public Point2d (Point2d pt) 
 	{	
 	}
+	
+	public void point2dArgs (String[] args){
+		x =  Double.parseDouble(args[1]);
+		y =  Double.parseDouble(args[2]);
+	}
 
 	public void dprint (String s) {
 		if (debug)

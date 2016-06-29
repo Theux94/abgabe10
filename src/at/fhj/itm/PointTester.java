@@ -26,6 +26,7 @@ public class PointTester
     	 p2 = new Point2d(4.0,3.0);
    		 assertEquals( Math.sqrt (Math.pow(p1.getX()-p2.getX(),2)+Math.pow(p1.getY()-p2.getY(),2)), p1.distanceFrom(p2), 0.00001);
     }
+    
     @Test
     public void testDistanceFromOrigin() throws Exception
     {
@@ -34,6 +35,7 @@ public class PointTester
     	
    		 assertEquals( 4.0 , p2.distanceFromOrigin(), 0.00001);
     }
+    
     @Test
     public void testGetY() throws Exception
     {
