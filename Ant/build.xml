@@ -1,0 +1,76 @@
+<?xml version="1.0"?> 
+<project name="uebung05b demo project" default="jar">
+
+	<property file="build.properties" />
+	
+	<property name="target.classes" value="${target}/classes"/>
+	
+ 	<property name="libs" value="${basedir}/libs"></property>
+	<path id="externalLibs"> 
+		<pathelement location="${libs}/junit-4.10.jar" />
+	</path>
+	
+    <target name="clean">
+    <delete dir="../build">
+    </delete>
+    </target>
+
+
+	<target name="prepare" description="erzeugt eine Verzeichnisstruktur für die späteren Aufgaben">
+		<mkdir dir="${target.classes}"/>
+		<mkdir dir="${target.jar}"/>
+		<javac scrdir="${src.java}" destdir="${target.java]}" includeantruntime="false" />
+		
+		
+		<junit printsummary="yes" haltonfailure="yes">
+	    				    <classpath>
+	    				        <pathelement path="${target.classes}"/>
+	    				        <fileset dir="$"> 
+	    				            <include name="**/junit.jar" />
+	    				        </fileset>
+	    				    </classpath>
+
+	    				</junit>
+		</target>
+
+    <target name="compile" depends="prepare" description="Kompiliert die Java Klassen">
+    <javac srcdir="${src.java}" destdir="${target.java}" includeantruntime="false" />
+    	
+    <javac srcdir="${src.junit}" destdir="${target.junit}" includeantruntime="false" >
+    	<classpath>
+    		<pathelement location="${target.java}/>
+     	   <path refid="externalLibs" />
+    	</classpath>
+    	</javac>
+    		
+    </target>
+  
+
+	<!-- create a runnable jar archive --> 
+	<!-- keep in mind that jar needs some compiled sources -->
+	<!-- please name the jar "Calc.jar" -->
+    <target name="jar" depends="compile" description="Kompiliert die Java Klassen" >
+    	<jar destfile="${target.jar}/Point2D.jar">
+    			
+    			<fileset dir="${target.classes}">
+    				<include name="**/*.class"/>
+    			</fileset>
+    			
+    			<manifest>
+    						<attribute name="Main-Class" value="at.fhj.itm.Main"/>
+    						<attribute name="Class-Path" value="at.fhj.itm"/>
+    			
+    				
+    			</manifest>
+    		</jar>
+    </target>
+
+	<!-- run any kind of math opersation (ONLY ONE Math operation) and delegate the output to a results.txt -->
+	<!-- the result must be 42 -->
+	<!-- keep in mind that run needs a jar file-->
+    <target name="run" depends="jar" description="führt Ihre Anwendung aus">
+    <java jar="${target.jar}/Point2D.jar" output="${target.jar}/results.txt" fork="true" />
+    </target>
+
+</project>
+
